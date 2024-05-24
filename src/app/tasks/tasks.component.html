@@ -1,0 +1,24 @@
+<form action="" [formGroup]="taskForm">
+    <div class="filter">
+    <input type="text" placeholder="search ..." formControlName="filter">
+</div>
+</form>
+
+{{search.value}}
+
+filtered value: {{filteredNames}}
+<table>
+    <tr>
+        <th>User Id</th>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Completed</th>
+    </tr>
+    <tr *ngFor="let task of tasks$ | async">
+        <td >{{task.Userid}}</td>
+        <td>{{task.id}}</td>
+        <td>{{task.title}}</td>
+        <td>{{task.completed}}</td>
+       
+    </tr>
+</table>

@@ -1,0 +1,24 @@
+table {
+    width: 700px;
+    width: 100%;
+    margin: 50px auto;
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+tr {
+    text-align: center;
+    line-height: 30px;
+    >td {
+        border:2px solid black;
+    }
+}
+
+.filter {
+    width: 400px;
+    margin: auto;
+    >input {
+        width: 100%;
+        line-height: 30px;
+    }
+}
