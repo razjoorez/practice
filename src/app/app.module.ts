@@ -7,6 +7,9 @@ import {HttpClientModule } from '@angular/common/http';
 import { TasksComponent } from './tasks/tasks.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
+import { booksReducer } from './state/books.reducer';
+import { collectionReducer } from './state/collection.reducer';
+
 
 
 @NgModule({
@@ -20,11 +23,10 @@ import { StoreModule } from '@ngrx/store';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({}, {})
-    
+    StoreModule.forRoot({books: booksReducer, collection: collectionReducer})
+
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
- 
