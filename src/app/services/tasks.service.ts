@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, map, mergeMap, of, switchMap, interval, from } from 'rxjs';
+import { Observable, Subject, map, mergeMap, of, switchMap, interval, from, distinctUntilChanged, debounceTime } from 'rxjs';
 import { Tasks } from '../model/tasks';
 
 
@@ -8,6 +8,8 @@ import { Tasks } from '../model/tasks';
   providedIn: 'root'
 })
 export class TasksService {
+  data:Tasks[] = []
+  getTasks:Tasks[] | undefined ;
 
   url = 'https://jsonplaceholder.typicode.com/todos';
   constructor(private http: HttpClient) { }
@@ -89,16 +91,32 @@ export class TasksService {
 
    callApi$ = this.letters$?.pipe(mergeMap(x=> this.http.get<Tasks[]>(this.url+'/' + x)));
 
+   callA$ = this.letters$?.pipe(
+    distinctUntilChanged(),
+    debounceTime(500),
+    switchMap(x=> this.http.get<Tasks[]>(this.url))
+   ).subscribe(
+    d=>this.data = [...d]
+   )
 
    mockApiCall$ = this.letters$?.pipe(
-    mergeMap(x=> this.mockTasks$.pipe(
+    switchMap(x=> this.mockTasks$.pipe(
       map(y=> console.log('mock tasks: ',y))
     ))
    )
+     
+   
+  //  this.mockTasks$= this.letters$.pipe(
+  //   distinctUntilChanged(),
+  //   debounceTime(500),
+  //   switchMap(  id=>  this.http.get<Tasks[]>(this.url)cat?=id
+  //   )
+  //  )
+
+  
+  
    
      
-
-
     
 
 }

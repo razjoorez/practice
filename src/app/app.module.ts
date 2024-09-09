@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { booksReducer } from './state/books.reducer';
 import { collectionReducer } from './state/collection.reducer';
+import { PractComponent } from './pract/pract.component';
 
 
 
@@ -16,7 +17,8 @@ import { collectionReducer } from './state/collection.reducer';
   declarations: [
     AppComponent,
     ChildComponent,
-    TasksComponent
+    TasksComponent,
+    PractComponent
   ],
   imports: [
     BrowserModule,

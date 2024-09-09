@@ -1,0 +1,28 @@
+<p>pract works!</p>
+
+
+
+<div >
+<!-- <div *ngIf="pract$ | async as pract">
+    <h1 *ngFor="let prac of pract">
+        {{prac.title}}
+    </h1>
+    hello
+</div> -->
+
+<button (click)="loadData()">Load data</button>
+
+    <table >
+        <thead>
+            <tr><th>Id</th><th>title</th></tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let practs of pract$ | async "><td> {{practs.id}}</td><td>{{practs.title}}</td></tr>
+        </tbody>
+       
+       
+    </table>
+
+        
+
+</div>
