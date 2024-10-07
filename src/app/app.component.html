@@ -4,7 +4,21 @@
 
 <button (click)="increment()" #button>Increament count</button>
 <button (click)="increment()" #button>Increament count</button>
+<br>
 <button (click)="increment()" #button>Increament count</button>
+<br>
+
 <button id="click-me"></button>
+<br>
+<br>
+
+
+<button (click)="getThreeObs(3)" style="min-height: 50px;background-color:blue;color:white;font-size: 30px;">Get first three tasks</button>
+
+<div *ngFor="let tasks of tasks$ | async">
+    {{tasks.title}}
+</div>
+
+
 <app-pract></app-pract>
 <router-outlet></router-outlet>

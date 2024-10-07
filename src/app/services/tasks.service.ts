@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, map, mergeMap, of, switchMap, interval, from, distinctUntilChanged, debounceTime } from 'rxjs';
+import { Observable, Subject, map, mergeMap, of, switchMap, interval, from, distinctUntilChanged, debounceTime, concatMap } from 'rxjs';
 import { Tasks } from '../model/tasks';
 
 
@@ -15,6 +15,7 @@ export class TasksService {
   constructor(private http: HttpClient) { }
  
   letters$:Observable<number> = of(1,2,3,4);
+  source$:Observable<number> = of(3,4,5);
   taksArray: Tasks[] = [
     {
       Userid: 2,
@@ -36,7 +37,14 @@ export class TasksService {
       title: 'mytitle3',
       completed: true,
 
-    }
+    },
+    {
+      Userid: 3,
+      id: 3,
+      title: 'mytitle2',
+      completed: true,
+
+    },
     
     
   ];
@@ -66,6 +74,7 @@ export class TasksService {
     //declaritve
 
     tasks$ = this.http.get<Tasks[]>(this.url);
+    
     
     getTaskOnN$!: Observable<Tasks[]>;
     private taskSubject = new Subject();
@@ -115,8 +124,52 @@ export class TasksService {
 
   
   
-   
+   getTask(tasksId:number) {
+    return this.taksArray.filter(x=> x.id == tasksId)
+   }
+
+   getTaskObs(taskId:number): Observable<Tasks[]> {
+
+    return of(this.taksArray.filter(x=> x.id==taskId))
+
+   }
      
-    
+    datafrom = this.source$.pipe(
+      // map(x=> {
+      //   let arr = []
+      //   for(let i=1;i<=x;i++) {
+      //     arr.push(i)
+      //   }
+      //   return (arr)
+      // }),
+    concatMap(
+      val=> this.getTaskObs(val))
+   ).subscribe();
+
+
+   getrequieed =   this.source$.pipe(
+   
+    concatMap((x:number)=> {
+
+    //  let tasks = []
+    //   for(let i=1; i<=x; i++) {
+    //     return this.getTaskObs(i)
+    //   }
+      return this.getTaskObs(x)
+
+
+      // let tasks = [];
+
+      // for(let i=1; i<=x; i++) {
+      //   let taskdara = this.getTaskObs(i);
+      //   tasks.push(taskdara)
+      // }
+      // return (tasks)
+
+    })
+   ).subscribe(
+
+    data => console.log(' CONCAT',data)
+   )
 
 }

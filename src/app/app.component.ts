@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ChildComponent } from './child/child.component';
 import { Observable, from, fromEvent } from 'rxjs';
+import { TasksService } from './services/tasks.service';
+import { Tasks } from './model/tasks';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +10,15 @@ import { Observable, from, fromEvent } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit,OnInit {
-   
+  constructor(private taskservice: TasksService){
+    this.taskservice.getrequieed;
+
+  }
+  //concattaks$= this.taskservice.getrequieed
 documentClick$ = fromEvent(document, 'click');
-  
+  chosenTask: Tasks[] | undefined;
   title = 'practice';
+  tasks$:Observable<Tasks[]> | undefined;
   //static:true  child component is always there, not wrapped in ngoninit
   @ViewChild(ChildComponent, {static: true}) child?: ChildComponent;
 
@@ -58,4 +65,15 @@ documentClick$ = fromEvent(document, 'click');
     console.log(this.child);
     this.child?.increment();
   }
+getthree(id:number) {
+ this.chosenTask= this.taskservice.getTask(3);
+ console.log('chosen task: ', this.chosenTask);
+ this.getThreeObs(id);
+}
+
+getThreeObs(id:number) {
+  this.tasks$ = this.taskservice.getTaskObs(id);
+  this.taskservice.getrequieed;
+}
+
 }
