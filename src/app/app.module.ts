@@ -9,6 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { booksReducer } from './state/books.reducer';
 import { collectionReducer } from './state/collection.reducer';
+import { counterReducer } from './state/counter.reducer';
+import { MyCounterComponent } from './my-counter/my-counter.component';
 
 
 
@@ -16,14 +18,15 @@ import { collectionReducer } from './state/collection.reducer';
   declarations: [
     AppComponent,
     ChildComponent,
-    TasksComponent
+    TasksComponent,
+    MyCounterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({books: booksReducer, collection: collectionReducer})
+    StoreModule.forRoot({books: booksReducer, collection: collectionReducer, count: counterReducer})
 
   ],
   providers: [],
